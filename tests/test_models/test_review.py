@@ -1,29 +1,19 @@
-#!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+import unittest
 from models.review import Review
 
+class TestReview(unittest.TestCase):
+    def setUp(self):
+        self.review_data = {
+            "text": "This is a test review",
+            "place_id": "123",
+            "user_id": "456"
+        }
+        self.review = Review(**self.review_data)
 
-class test_review(test_basemodel):
-    """ """
+    def test_attributes(self):
+        self.assertEqual(self.review.text, self.review_data["text"])
+        self.assertEqual(self.review.place_id, self.review_data["place_id"])
+        self.assertEqual(self.review.user_id, self.review_data["user_id"])
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "Review"
-        self.value = Review
-
-    def test_place_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.place_id), str)
-
-    def test_user_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
-
-    def test_text(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.text), str)
+if __name__ == '__main__':
+    unittest.main()

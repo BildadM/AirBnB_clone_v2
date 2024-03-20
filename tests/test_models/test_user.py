@@ -1,34 +1,29 @@
-#!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+import unittest
 from models.user import User
 
+class TestUser(unittest.TestCase):
+    def setUp(self):
+        self.user_data = {
+            "email": "test@example.com",
+            "password": "password123",
+            "first_name": "John",
+            "last_name": "Doe"
+        }
+        self.user = User(**self.user_data)
 
-class test_User(test_basemodel):
-    """ """
+    def test_attributes(self):
+        self.assertEqual(self.user.email, self.user_data["email"])
+        self.assertEqual(self.user.password, self.user_data["password"])
+        self.assertEqual(self.user.first_name, self.user_data["first_name"])
+        self.assertEqual(self.user.last_name, self.user_data["last_name"])
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "User"
-        self.value = User
+    def test_relationship_places(self):
+        self.assertTrue(hasattr(self.user, 'places'))
+        self.assertEqual(self.user.places, [])
 
-    def test_first_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.first_name), str)
+    def test_relationship_reviews(self):
+        self.assertTrue(hasattr(self.user, 'reviews'))
+        self.assertEqual(self.user.reviews, [])
 
-    def test_last_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.last_name), str)
-
-    def test_email(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.email), str)
-
-    def test_password(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.password), str)
+if __name__ == '__main__':
+    unittest.main()
